@@ -1,0 +1,29 @@
+CONNECTION STRING StudentDB
+Data Source=.\SQLEXPRESS;AttachDbFilename=C:\Users\Marfi\source\repos\BaseStudentApp\BaseStudentApp\App_Data\StudentDB.mdf;Integrated Security=True
+====================================================================================================================================================
+ QUERIES
+
+CREATE TABLE [dbo].[Student] (
+    [IdStudent] INT        NOT NULL,
+    [BiStudent] NCHAR (10) NULL,
+    [sName]     NCHAR (15) NULL,
+    [sLastname] NCHAR (25) NULL,
+    [City]      NCHAR (15) NULL,
+    PRIMARY KEY CLUSTERED ([IdStudent] ASC)
+);
+
+POREDURE
+GetStudent
+CREATE PROCEDURE [dbo].[GetStudents]
+as
+begin
+select * from Student
+end
+
+NewStudent
+
+Updete Details
+
+
+
+====================================================================================================================================================

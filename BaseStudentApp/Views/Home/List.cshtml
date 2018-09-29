@@ -1,0 +1,82 @@
+﻿@model IEnumerable<BaseStudentApp.ViewModel.IspitiStudenataVM>
+@{ 
+    ViewBag.Title = "Lista Studenata sa detaljima ispita";
+    WebGrid grid = new WebGrid(source: Model, canSort: false);
+}
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div id="main" style="padding:50px; background:rgba(0,0,0,0.35);">
+    @grid.GetHtml(
+    htmlAttributes: new { id = "gridT", width = "750px" },
+    columns: grid.Columns(
+        grid.Column("sStudenti.BiStudent", "Indeks studentske knjizice"),
+        grid.Column("sStudenti.sName", "Ime studenta"),
+        grid.Column("sStudenti.sLastname", "Prezime studenta"),
+        grid.Column("sStudenti.City", "Grad"),
+
+        grid.Column(format: (item) =>
+        {
+            WebGrid subGrid = new WebGrid(source: item.Ispiti);
+            return subGrid.GetHtml(
+                htmlAttributes: new { id = "subT" },
+                columns: subGrid.Columns(
+                    subGrid.Column("Predmet", "Predmet"),
+                    subGrid.Column("Ocena", "Ocena")
+                    )
+
+                );
+        }
+        )
+        )
+    )
+</div>
+@section Scripts{
+<script>
+
+    $(document).ready(function () {
+        var size = $("#main #gridT > thead > tr> th").size();
+        $("#main #gridT > thead > tr").prepend("<th></th>");
+        $("#main #gridT > thead > tr").each(function (i, el) {
+            $this.prepend(
+                $("<td></td>")
+                    .addClass("expand")
+                    .addClass("hoverEff")
+                    .attr('title', "Vidi ispite")
+            );
+            //sub table
+            var table = $("table", this).parent.html();
+            $(this).after("<tr><td></td><td style='padding:5px; margin:0px;' colspan='" + (size - 1) + "'>" + table + "</td></tr>");
+            $("table", this).parent().remove();
+
+            //Click Event
+            $(".hoverEff", this).live("click", function () {
+                $(this).parent().closest("tr").next().slideToggle(1000);
+                $(this).toggleClass("expand collapse");
+            });
+        });
+        //default collapse
+        $("main gridT > tbody > tr td.expand").each(function (i, el) {
+            $(this).toggleClass("expand collapse");
+            $(this).parent().closest("tr").next().slideToggle(1000);
+        });
+    });
+    </script>    
+    }
+
+@*<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>*@

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BaseStudentApp.Models.Student>
+
+<p>
+Lista studenata
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BiStudent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sLastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BiStudent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sLastname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.ActionLink("Izmeni", "Edit", new { id = item.BiStudent }) |
+            @Html.ActionLink("Vidi ispite", "Details", new { id = item.BiStudent }) |
+            @Html.ActionLink("Obrisi", "deleteStudent", new { id = item.IdStudent }) |
+        </td>
+    </tr>
+}
+
+</table>
