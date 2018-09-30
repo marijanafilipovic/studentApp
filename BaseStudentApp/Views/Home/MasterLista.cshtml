@@ -1,0 +1,90 @@
+﻿@model IEnumerable<BaseStudentApp.ViewModel.IspitiStudenataVM>
+@{
+    ViewBag.Title = "Lista Studenata sa detaljima ispita";
+    WebGrid grid = new WebGrid(source: Model, canSort: false);
+}
+@{
+
+}
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div id="main" style="padding:50px; background:rgba(0,0,0,0.35);">
+    @grid.GetHtml(
+    htmlAttributes: new { id = "gridT", width = "750px" },
+    columns: grid.Columns(
+        grid.Column("Studenti.IdStudent", "Indeks studentske knjizice"),
+    grid.Column("Studenti.BiStudent", "Indeks studentske knjizice"),
+        grid.Column("Studenti.sName", "Ime studenta"),
+        grid.Column("Studenti.sLastname", "Prezime studenta"),
+        grid.Column("Studenti.City", "Grad"),
+
+        grid.Column(format: (item) =>
+        {
+            WebGrid subGrid = new WebGrid(source: item.Ispiti);
+            return subGrid.GetHtml(
+                htmlAttributes: new { id = "subT" },
+                columns: subGrid.Columns(
+                    subGrid.Column("Predmet", "Predmet"),
+                    subGrid.Column("Ocena", "Ocena")
+                    )
+
+                );
+        }
+        )
+        )
+    )
+
+</div>
+
+
+
+<style>
+    th
+    th, td {
+        padding: 5px;
+    }
+
+    th {
+        background-color: rgb(248, 248, 248);
+    }
+
+    #gridT, #gridT tr {
+        border: 1px solid #0D857B;
+    }
+
+    #subT, #subT tr {
+        border: 1px solid #f3f3f3;
+    }
+
+    #subT {
+        margin: 0px 0px 0px 10px;
+        padding: 5px;
+        width: 95%;
+        display: inline-block;
+    }
+
+        #subT th {
+            font-size: 12px;
+        }
+
+    .hoverEff {
+        cursor: pointer;
+    }
+
+        .hoverEff:hover {
+            background-color: rgb(248, 242, 242);
+        }
+
+    .expand {
+        background-image: url(/Images/pm.png);
+        background-position-x: -22px;
+        background-repeat: no-repeat;
+    }
+
+    .collapse {
+        background-image: url(/Images/pm.png);
+        background-position-x: -2px;
+        background-repeat: no-repeat;
+    }
+</style>

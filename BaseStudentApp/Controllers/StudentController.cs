@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BaseStudentApp.Repository;
 using BaseStudentApp.Models;
+using BaseStudentApp.Repository;
 
 namespace BaseStudentApp.Controllers
 {
@@ -36,7 +39,7 @@ namespace BaseStudentApp.Controllers
         {
             try
             {
-                if(ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
                     StudentRepository studRepo = new StudentRepository();
                     if (studRepo.addStudent(Student))
@@ -45,8 +48,8 @@ namespace BaseStudentApp.Controllers
                         ModelState.Clear();
                     }
                 }
-               
-                    return View();
+
+                return View();
             }
             catch
             {
@@ -55,11 +58,24 @@ namespace BaseStudentApp.Controllers
         }
 
         // GET: Student/Edit/5
-        public ActionResult UpdateStudentDetails(int IdStudent)
+        public ActionResult UpdateStudentDetails(int? id)
         {
-            StudentRepository StudRepo = new StudentRepository();
+            using (StudentDBEntities db = new StudentDBEntities())
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Student student = db.Studenti.Find(id);
+                if (student == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(student);
+            }
+            //  StudentRepository StudRepo = new StudentRepository();
 
-            return View(StudRepo.getStudent().Find(Student => Student.IdStudent == IdStudent));
+            // return View(StudRepo.getStudent().Find(Student => Student.IdStudent == IdStudent));
         }
 
         // POST: Student/Edit/5
@@ -77,42 +93,42 @@ namespace BaseStudentApp.Controllers
                 return View();
             }
         }
-        
 
-        // GET: Student/Delete/5
-        [HttpGet]
-        public ActionResult deleteStudent(int? IdStudent)
+
+        // GET: Ispit/Delete/5
+        public ActionResult Delete(int? id)
         {
-            if(IdStudent == null)
+            using (StudentDBEntities db = new StudentDBEntities())
             {
-                return View();
-            }
-            StudentRepository Student = new StudentRepository();
-            Student.deleteStudent(IdStudent);
-            if (Student == null)
-            { 
-                return ViewBag.Message("Student nepostoji na listi.");
-            }
-            else
-            { 
-                return View(Student);
-            }
-        }
-        [HttpPost, ActionName("deleteStudent")]
-        public ActionResult delete(int? id)
-        {
-            
-                StudentRepository StudRepo = new StudentRepository();
-                if (StudRepo.deleteStudent(id))
+                if (id == null)
                 {
-                return RedirectToAction("getStudent");
-
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Student student = db.Studenti.Find(id);
+                if (student == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(student);
             }
-            else
-            {
-                return RedirectToAction("index");
-            }
+           
         }
-             }
-        
+        // POST: Ispit/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int? id)
+        {
+            using (StudentDBEntities db = new StudentDBEntities())
+            {
+                Student student = db.Studenti.Find(id);
+                db.Studenti.Remove(student);
+                db.SaveChanges();
+            }
+            return RedirectToAction("getStudent");
+        }
+      
+
+    }
+
 }
+

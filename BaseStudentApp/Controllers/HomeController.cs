@@ -21,7 +21,7 @@ namespace BaseStudentApp.Controllers
             return View();
         }
 
-        public ActionResult List()
+        public ActionResult MasterLista()
         {
             List<IspitiStudenataVM> sviIspiti = new List<IspitiStudenataVM>();
             using (StudentDBEntities st = new StudentDBEntities())
@@ -38,7 +38,8 @@ namespace BaseStudentApp.Controllers
             }
             return View(sviIspiti);
         }
- 
+
+
     }
-    
+
 }
