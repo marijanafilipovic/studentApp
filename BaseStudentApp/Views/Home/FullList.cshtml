@@ -9,16 +9,16 @@
 <div id="main" style="padding:25px; background-color:white;">
             <h2>FullList</h2>
 
-
+    var grid = new WebGrid();
                 @grid.GetHtml(
                             htmlAttributes: new { id = "MainGrid", width = "700px" },
                             tableStyle: "table table-bordered table-responsive",
 
                             columns: grid.Columns(
-                                    grid.Column("Studenti.BiStudent", "Indeks Studenta"),
-                                    grid.Column("Studenti.sName", "Ime"),
-                                    grid.Column("Studenti.sLastname", "Prezime"),
-                                    grid.Column("Studenti.City", "Grad"),
+                                    grid.Column("o.BiStudent", "Indeks Studenta"),
+                                    grid.Column("o.sName", "Ime"),
+                                    grid.Column("o.sLastname", "Prezime"),
+                                    grid.Column("o.City", "Grad"),
 
 
                                     grid.Column(format: (item) =>

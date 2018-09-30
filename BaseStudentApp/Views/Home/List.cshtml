@@ -1,7 +1,11 @@
-﻿@model IEnumerable<BaseStudentApp.ViewModel.IspitiStudenataVM>
+﻿
+@model IEnumerable<BaseStudentApp.ViewModel.IspitiStudenataVM>
 @{ 
     ViewBag.Title = "Lista Studenata sa detaljima ispita";
     WebGrid grid = new WebGrid(source: Model, canSort: false);
+}
+@{ 
+
 }
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -10,10 +14,11 @@
     @grid.GetHtml(
     htmlAttributes: new { id = "gridT", width = "750px" },
     columns: grid.Columns(
-        grid.Column("sStudenti.BiStudent", "Indeks studentske knjizice"),
-        grid.Column("sStudenti.sName", "Ime studenta"),
-        grid.Column("sStudenti.sLastname", "Prezime studenta"),
-        grid.Column("sStudenti.City", "Grad"),
+        grid.Column("Studenti.IdStudent", "Indeks studentske knjizice"),
+    grid.Column("Studenti.BiStudent", "Indeks studentske knjizice"),
+        grid.Column("Studenti.sName", "Ime studenta"),
+        grid.Column("Studenti.sLastname", "Prezime studenta"),
+        grid.Column("Studenti.City", "Grad"),
 
         grid.Column(format: (item) =>
         {
@@ -30,6 +35,7 @@
         )
         )
     )
+    
 </div>
 @section Scripts{
 <script>

@@ -8,8 +8,16 @@ namespace BaseStudentApp.ViewModel
 {   
     public class IspitiStudenataVM
     {
-        public List<Student> Studenti { get; set; }
+
+
+        //internal Student Sudent;
+        public Student Studenti { get; set; }
         public List<Ispit> Ispiti { get; set; }
+        //public IspitiStudenataVM(int IdStudent, string BiStudent, string sName, string sLastname, string City, int Id, string BiSt, string Predmet, string Ocena)
+        //{
+        //    BiStudent = BiSt;
+        //}
+
         
 
 

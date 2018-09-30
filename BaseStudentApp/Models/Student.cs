@@ -6,12 +6,18 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BaseStudentApp.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
+    [Table("Student")]
     public partial class Student
     {
         public int IdStudent { get; set; }
@@ -19,5 +25,6 @@ namespace BaseStudentApp.Models
         public string sName { get; set; }
         public string sLastname { get; set; }
         public string City { get; set; }
+        public List<Ispit> ispiti { get; set; }
     }
 }
