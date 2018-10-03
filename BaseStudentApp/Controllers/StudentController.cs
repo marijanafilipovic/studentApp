@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BaseStudentApp.Models;
+using BaseStudentApp.ViewModel;
 using BaseStudentApp.Repository;
 
 namespace BaseStudentApp.Controllers
@@ -16,9 +17,19 @@ namespace BaseStudentApp.Controllers
         // GET: Student
         public ActionResult getStudent()
         {
-            StudentRepository StudRep = new StudentRepository();
-            ModelState.Clear();
-            return View(StudRep.getStudent());
+            using (StudentDBEntities db = new StudentDBEntities())
+            {
+                var student = db.Studenti.ToList();
+                if (student == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(student);
+
+            }
+            //StudentRepository StudRep = new StudentRepository();
+            //ModelState.Clear();
+            //return View(StudRep.getStudent());
         }
 
         // GET: Student/Details/5

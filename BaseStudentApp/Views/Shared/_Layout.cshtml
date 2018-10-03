@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title style="color:white;">@ViewBag.Title - MVC ASP.NET Application - Sudenti</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
 
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/themes/base")
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -25,8 +26,6 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li style="color:white;">@Html.ActionLink("Home", "Index", "Home")</li>
-                    @*<li>@Html.ActionLink("About", "About", "Home")</li>
-        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                     <li style="color:black;">@Html.ActionLink("Upisi studenta", "addStudent", "Student")</li>
                     <li style="color:black;">@Html.ActionLink("Lista studenata", "getStudent", "Student")</li>
                     <li style="color:black;">@Html.ActionLink("Dodaj ispit", "Create", "Ispit")</li>
@@ -43,11 +42,10 @@
             <p>&copy; @DateTime.Now.Year - STUDENTI</p>
         </footer>
     </div>
-
+    @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jquery-3.3.1/js")
-    @Scripts.Render("~/bundles/bootstrap.js")
-    @Scripts.Render("~/bundles/jquery.dataTables.min.js")
+    @Scripts.Render("~/bundles/jqueryui")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
